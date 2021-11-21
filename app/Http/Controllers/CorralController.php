@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Corral;
+use App\Animal;
 use Illuminate\Http\Request;
 
 class CorralController extends Controller
@@ -14,7 +15,8 @@ class CorralController extends Controller
      */
     public function index()
     {
-        //
+        $animales = Animal::all();
+        return view('gestion-corrales')->with('animales',$animales);
     }
 
     /**
@@ -22,9 +24,19 @@ class CorralController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $data = $request->except('_token');
+
+        $corral = new Corral();
+        $corral->animal = $data['animal'];
+        $corral->nombre = $data['name'];
+        $corral->capacidad = $data['capacidad'];
+        $corral->detalle = $data['detalle'];
+
+        $corral->save();
+
+        return redirect()->back()->with('message', 'Registro Exitoso');
     }
 
     /**

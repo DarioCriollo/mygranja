@@ -22,7 +22,7 @@
             </div>
             <div class="col-5">
               
-                <a class="card lift h-100" href="#!">
+                <a class="card lift h-100" href="{{ route('gestion-corrales') }}">
                     <div class="card-body d-flex justify-content-center flex-column">
                         <div class="d-flex align-items-center justify-content-between">
                             <div class="me-3">

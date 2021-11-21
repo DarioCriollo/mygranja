@@ -24,3 +24,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/gestion-animales', 'AnimalController@index')->name('gestion-animales');
 Route::post('/registro-animal', 'AnimalController@create')->name('registro-animal');
+Route::get('/gestion-corrales', 'CorralController@index')->name('gestion-corrales');
+Route::post('/registro-corral', 'CorralController@create')->name('registro-corral');
