@@ -14,7 +14,8 @@ class TipoAnimalController extends Controller
      */
     public function index()
     {
-        //
+        $tipos = TipoAnimal::all();
+        return response()->json(['data'=>$tipos]);
     }
 
     /**

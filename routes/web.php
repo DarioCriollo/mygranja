@@ -14,9 +14,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('principal');
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+Route::get('/gestion-animales', 'AnimalController@index')->name('gestion-animales');
+Route::post('/registro-animal', 'AnimalController@create')->name('registro-animal');

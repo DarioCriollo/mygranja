@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Animal;
+use App\TipoAnimal;
 use Illuminate\Http\Request;
 
 class AnimalController extends Controller
@@ -14,7 +15,8 @@ class AnimalController extends Controller
      */
     public function index()
     {
-        //
+        $tipos = TipoAnimal::all();
+        return view('gestion-animal')->with('tipos',$tipos);
     }
 
     /**
@@ -22,9 +24,23 @@ class AnimalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $data = $request->except('_token');
+        //return $data;
+
+        $animal = new Animal();
+        $animal->tipo = $data['tipo'];
+        $animal->nombre = $data['name'];
+        $animal->peso = $data['peso'];
+        $animal->edad = $data['edad'];
+        $animal->detalle = $data['detalle'];
+
+        $animal->save();
+
+        return redirect()->back()->with('message', 'Registro Exitoso');
+
+
     }
 
     /**
