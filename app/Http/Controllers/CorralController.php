@@ -51,11 +51,12 @@ class CorralController extends Controller
     {
         //return ($request->corral);
         $lista = DB::table('corrals')
-        ->join('animals', 'corrals.animal', '=', 'animals.id')
+        ->join('asignacions', 'corrals.id', '=', 'asignacions.corral')
+        ->join('animals', 'animals.id', '=', 'asignacions.animal')
         ->where('corrals.id', $request->corral)
         ->get();
 
-        return $lista;
+        return response()->json(['data'=>$lista]);
     }     
 
     /**

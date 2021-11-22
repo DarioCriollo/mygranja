@@ -7,7 +7,7 @@
             <div class="col-5">
               
                 <div class="form-group row">
-                    <label for="corral" class="col-sm-2 col-form-label">Corral*</label>
+                    <label for="corral" class="col-sm-12 col-form-label"><b>Seleccionar Corral</b>*</label>
                     <div class="col-sm-10">
                     <select class="form-control @error('corral') is-invalid @enderror" onchange="ShowSelected();" id="corral" name="corral" value="{{ old('corral') }}" required autocomplete="corral" autofocus>
                         <option>Elija una opción</option>
@@ -17,38 +17,33 @@
                         
                     </select>
                       
-                    <br>
-                    <input type="button" onclick="busquedaAnimal();" class="btn btn-info btn-icon-split" id="btn-enviar" value="Buscar Animal">
                     </div>
                 </div>
 
             </div>
             <div class="col-5">
-              Lista Animales
-                <table class="table">
-                    <thead>
-                      <tr>
-                        <th scope="col">id</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Tipo</th>
-                        <th scope="col">Detalle</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                      </tr>
-                    </tbody>
-                  </table>
+                <div class="row justify-content-center">
+                    <h4><b>Lista Animales</b></h4>
+                </div>
+              
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">id</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Peso</th>
+                    <th scope="col">Edad</th>
+                    <th scope="col">Detalle</th>
+                  </tr>
+                </thead>
+                <tbody id="body">
+                  
+                </tbody>
+              </table>
 
             </div>
 
           </div>
-
-
 
 </div>
 @endsection

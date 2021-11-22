@@ -1,24 +1,7 @@
-// function f1(){
-//    //alert("Funcion cargada al inicio");
-//    value = $('#corral').val('value').change();
-// alert(value);
-// }
- 
-// window.onload = f1;
-
-
-$(document).ready(function(){
-$('#corral').change(evt => {
-    var archivo = evt.target.files[0];
-    alert(archivo)
-});
-});
-
 function ShowSelected()
 {
 /* Para obtener el valor */
 var cod = document.getElementById("corral").value;
-alert(cod);
 
 $.ajax({
     url:'lista-animales',
@@ -29,8 +12,30 @@ $.ajax({
       corral : cod
     },
     success:(res) => {
-      alert(res);
-      console.log(res)
+        console.log(res.data)
+        var object = res.data
+        var body = document.getElementById("body").innerHTML= " ";
+        var body = document.getElementById("body");
+        
+
+        for(i=0; i<object.length; i++){
+            var tr = document.createElement('tr');
+            console.log(res.data[i].nombre);
+            var td_id = document.createElement('td');
+            td_id.innerText = res.data[i].id;
+            
+            var td_nombre = document.createElement('td');
+                td_nombre.innerText = res.data[i].nombre;
+            var td_peso = document.createElement('td');
+                td_peso.innerText = res.data[i].peso+' (KG)';
+            var td_edad = document.createElement('td');
+                td_edad.innerText = res.data[i].edad;
+            var td_detalle = document.createElement('td');
+                td_detalle.innerText = res.data[i].detalle;
+            tr.append(td_id,td_nombre,td_peso,td_edad,td_detalle);
+            body.append(tr);
+        }
+        
     }
   });
  
