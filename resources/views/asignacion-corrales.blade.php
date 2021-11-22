@@ -3,6 +3,7 @@
 @section('content')
 <br><br>
   <div class="container">
+    <a class="btn btn-info" href="{{ route('inicio') }}" >Atras</a>
       <div class="row  justify-content-center">
         <span class="badge bg-success text-white rounded-pill py-2 px-3 mb-12"><h4>Asignación Corrales Corrales</h4></span>
       </div>

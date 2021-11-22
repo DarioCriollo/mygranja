@@ -38,12 +38,21 @@ class CorralController extends Controller
         $corral->save();
 
         return redirect()->back()->with('message', 'Registro Exitoso');
+        
     }
 
     public function corralesAnimales(Request $request)
     {
         $corrales = Corral::all();
-        return view('lista-animales')->with('corrales',$corrales);
+        $puntos = [];
+
+        foreach($corrales as $key => $qs){
+            $query = "select count(corral) from asignacions where corral=?";
+            $res = DB::connection('pgsql')->select($query,array($qs->id));
+            $puntos []= ['name' => $qs->nombre, 'y' => $res[0]->count ];
+        }
+
+        return view('lista-animales')->with('corrales',$corrales)->with('puntos',json_encode($puntos));
     }
 
     

@@ -1,6 +1,6 @@
 function ShowSelected()
 {
-/* Para obtener el valor */
+
 var cod = document.getElementById("corral").value;
 
 $.ajax({
@@ -16,7 +16,8 @@ $.ajax({
         var object = res.data
         var body = document.getElementById("body").innerHTML= " ";
         var body = document.getElementById("body");
-        
+        var suma=0;
+        var media=0;
 
         for(i=0; i<object.length; i++){
             var tr = document.createElement('tr');
@@ -34,15 +35,16 @@ $.ajax({
                 td_detalle.innerText = res.data[i].detalle;
             tr.append(td_id,td_nombre,td_peso,td_edad,td_detalle);
             body.append(tr);
+
+            suma += parseInt(res.data[i].edad);
+            media = suma/object.length;
         }
+
+        document.getElementById("media").innerHTML= media;
         
     }
   });
  
-/* Para obtener el texto */
-// var combo = document.getElementById("corral");
-// var selected = combo.options[combo.selectedIndex].text;
-// alert(selected);
 }
 
 

@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container">
+    <a class="btn btn-info" href="{{ route('inicio') }}" >Atras</a>
         <br><br><br><br>
         <div class="row justify-content-center">
             <div class="col-5">
@@ -40,6 +41,82 @@
                   
                 </tbody>
               </table>
+
+            </div>
+          </div>
+
+
+          <br><br>
+          <div class="row justify-content-center">
+            <div class="col-5">
+              
+            <div id="container"></div>
+            <script type="text/javascript">
+    var puntos =  <?php echo $puntos ?>;
+   
+    Highcharts.chart('container', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Corrales 2021'
+        },
+        subtitle: {
+            text: ''
+        },
+        accessibility: {
+            announceNewData: {
+                enabled: true
+            }
+        },
+        xAxis: {
+            type: 'category'
+        },
+        yAxis: {
+            title: {
+                text: 'Total percent market share'
+            }
+    
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            series: {
+                borderWidth: 0,
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.y:.1f}%'
+                }
+            }
+        },
+    
+        tooltip: {
+            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+        },
+    
+        series: [
+            {
+                name: "Browsers",
+                colorByPoint: true,
+                data: puntos
+                
+            }
+        ],
+   
+    });
+</script>
+
+            </div>
+            <div class="col-5">
+                <div class="row justify-content-center">
+                    <h4><b>Media de edad Animales</b></h4>
+                </div>
+                <br><br>
+                <div class="row justify-content-center">
+                    <button class="btn btn-success" id="media"></button>
+                </div>
 
             </div>
 
