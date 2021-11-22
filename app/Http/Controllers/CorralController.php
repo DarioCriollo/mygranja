@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Corral;
 use App\Animal;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CorralController extends Controller
 {
@@ -29,15 +30,33 @@ class CorralController extends Controller
         $data = $request->except('_token');
 
         $corral = new Corral();
-        $corral->animal = $data['animal'];
         $corral->nombre = $data['name'];
         $corral->capacidad = $data['capacidad'];
         $corral->detalle = $data['detalle'];
+        $corral->estado = 'A';
 
         $corral->save();
 
         return redirect()->back()->with('message', 'Registro Exitoso');
     }
+
+    public function corralesAnimales(Request $request)
+    {
+        $corrales = Corral::all();
+        return view('lista-animales')->with('corrales',$corrales);
+    }
+
+    
+    public function listaAnimales(Request $request)
+    {
+        //return ($request->corral);
+        $lista = DB::table('corrals')
+        ->join('animals', 'corrals.animal', '=', 'animals.id')
+        ->where('corrals.id', $request->corral)
+        ->get();
+
+        return $lista;
+    }     
 
     /**
      * Store a newly created resource in storage.

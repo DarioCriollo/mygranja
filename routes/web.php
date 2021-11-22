@@ -26,3 +26,8 @@ Route::get('/gestion-animales', 'AnimalController@index')->name('gestion-animale
 Route::post('/registro-animal', 'AnimalController@create')->name('registro-animal');
 Route::get('/gestion-corrales', 'CorralController@index')->name('gestion-corrales');
 Route::post('/registro-corral', 'CorralController@create')->name('registro-corral');
+Route::get('/asignacion-corrales', 'AsignacionController@index')->name('asignacion-corrales');
+Route::post('/registro-asignacion', 'AsignacionController@create')->name('registro-asignacion');
+
+Route::get('/visualizar-animales', 'CorralController@corralesAnimales')->name('visualizar-animales');
+Route::get('/lista-animales', 'CorralController@listaAnimales')->name('lista-animales');

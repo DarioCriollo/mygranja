@@ -21,6 +21,7 @@ class CreateAnimalsTable extends Migration
             $table->string('edad');
             $table->string('peso');
             $table->string('detalle');
+            $table->string('estado');
             $table->timestamps();
         });
     }

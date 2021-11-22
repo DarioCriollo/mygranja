@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Asignacion;
 use App\Animal;
-use App\TipoAnimal;
+use App\Corral;
+
 use Illuminate\Http\Request;
 
-class AnimalController extends Controller
+class AsignacionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +17,9 @@ class AnimalController extends Controller
      */
     public function index()
     {
-        $tipos = TipoAnimal::all();
-        return view('gestion-animal')->with('tipos',$tipos);
+        $animales = Animal::all();
+        $corrales = Corral::all();
+        return view('asignacion-corrales')->with('animales',$animales)->with('corrales',$corrales);
     }
 
     /**
@@ -27,21 +30,13 @@ class AnimalController extends Controller
     public function create(Request $request)
     {
         $data = $request->except('_token');
-        //return $data;
 
-        $animal = new Animal();
-        $animal->tipo = $data['tipo'];
-        $animal->nombre = $data['name'];
-        $animal->peso = $data['peso'];
-        $animal->edad = $data['edad'];
-        $animal->detalle = $data['detalle'];
-        $animal->estado = 'A';
-
-        $animal->save();
+        $asignacion = new Asignacion();
+        $asignacion->corral = $data['corral'];
+        $asignacion->animal = $data['animal'];
+        $asignacion->save();
 
         return redirect()->back()->with('message', 'Registro Exitoso');
-
-
     }
 
     /**
@@ -58,10 +53,10 @@ class AnimalController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Animal  $animal
+     * @param  \App\Asignacion  $asignacion
      * @return \Illuminate\Http\Response
      */
-    public function show(Animal $animal)
+    public function show(Asignacion $asignacion)
     {
         //
     }
@@ -69,10 +64,10 @@ class AnimalController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Animal  $animal
+     * @param  \App\Asignacion  $asignacion
      * @return \Illuminate\Http\Response
      */
-    public function edit(Animal $animal)
+    public function edit(Asignacion $asignacion)
     {
         //
     }
@@ -81,10 +76,10 @@ class AnimalController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Animal  $animal
+     * @param  \App\Asignacion  $asignacion
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Animal $animal)
+    public function update(Request $request, Asignacion $asignacion)
     {
         //
     }
@@ -92,10 +87,10 @@ class AnimalController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Animal  $animal
+     * @param  \App\Asignacion  $asignacion
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Animal $animal)
+    public function destroy(Asignacion $asignacion)
     {
         //
     }

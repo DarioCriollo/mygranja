@@ -12,7 +12,7 @@
         <form  method="POST" action="{{ route('registro-corral') }}">
             @csrf
 
-            <div class="form-group row">
+            {{--  <div class="form-group row">
                 <label for="animal" class="col-sm-2 col-form-label">Animal*</label>
                 <div class="col-sm-10">
                 <select class="form-control @error('animal') is-invalid @enderror" name="animal" value="{{ old('animal') }}" required autocomplete="animal" autofocus>
@@ -24,7 +24,7 @@
                 </select>
                   
                 </div>
-            </div>
+            </div>  --}}
 
 
             <div class="form-group row">

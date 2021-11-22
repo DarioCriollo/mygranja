@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCorralsTable extends Migration
+class CreateCorralAnimalsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreateCorralsTable extends Migration
      */
     public function up()
     {
-        Schema::create('corrals', function (Blueprint $table) {
+        Schema::create('corral_animals', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
-            $table->string('capacidad');
-            $table->string('detalle');
-            $table->string('estado');
             $table->timestamps();
         });
     }
@@ -30,6 +26,6 @@ class CreateCorralsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('corrals');
+        Schema::dropIfExists('corral_animals');
     }
 }
