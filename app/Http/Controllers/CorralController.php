@@ -6,6 +6,7 @@ use App\Corral;
 use App\Animal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class CorralController extends Controller
 {
@@ -16,7 +17,7 @@ class CorralController extends Controller
      */
     public function index()
     {
-        $animales = Animal::all();
+        $animales = Animal::all()->where('estado','A');
         return view('gestion-corrales')->with('animales',$animales);
     }
 
@@ -74,9 +75,32 @@ class CorralController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function reporteAnimales(Request $request)
     {
-        //
+        $corrales = Corral::all();
+        $puntos = [];
+
+        foreach($corrales as $key => $qs){
+            $query = "select * from asignacions join animals on asignacions.animal=animals.id where asignacions.corral=?";
+            $res = DB::connection('pgsql')->select($query,array($qs->id));
+            $puntos []= [$res ];
+        }
+
+        // for ($i=0; $i<count($puntos); $i++){
+        //     for($j=0; $j<count($puntos[$i][0]); $j++){
+        //         print_r($puntos[$i][0][$j]->nombre);
+        //         print_r($puntos[$i][0][$j]->corral);
+        //         echo "<br>";
+        //     }
+        // }
+
+        $animales = DB::table('corrals')
+        ->join('asignacions', 'corrals.id', '=', 'asignacions.corral')
+        ->join('animals', 'animals.id', '=', 'asignacions.animal')
+        ->get();
+        
+
+       return PDF::loadView('reporte-animales', compact('corrales','animales'))->setPaper('A4')->stream();
     }
 
     /**

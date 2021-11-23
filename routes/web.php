@@ -31,3 +31,5 @@ Route::post('/registro-asignacion', 'AsignacionController@create')->name('regist
 
 Route::get('/visualizar-animales', 'CorralController@corralesAnimales')->name('visualizar-animales');
 Route::get('/lista-animales', 'CorralController@listaAnimales')->name('lista-animales');
+
+Route::get('/reporte-pdf', 'CorralController@reporteAnimales')->name('reporte-pdf');

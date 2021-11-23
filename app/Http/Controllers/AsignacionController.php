@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Asignacion;
 use App\Animal;
 use App\Corral;
+use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
 
@@ -17,8 +18,8 @@ class AsignacionController extends Controller
      */
     public function index()
     {
-        $animales = Animal::all();
-        $corrales = Corral::all();
+        $animales = Animal::all()->where('estado','A');
+        $corrales = Corral::all()->where('estado','A');
         return view('asignacion-corrales')->with('animales',$animales)->with('corrales',$corrales);
     }
 
@@ -31,67 +32,37 @@ class AsignacionController extends Controller
     {
         $data = $request->except('_token');
 
-        $asignacion = new Asignacion();
-        $asignacion->corral = $data['corral'];
-        $asignacion->animal = $data['animal'];
-        $asignacion->save();
+        $corral = Corral::find($data['corral']);
 
-        return redirect()->back()->with('message', 'Registro Exitoso');
+        $lista = DB::table('corrals')
+        ->join('asignacions', 'corrals.id', '=', 'asignacions.corral')
+        ->join('animals', 'animals.id', '=', 'asignacions.animal')
+        ->where('corrals.id', $data['corral'])
+        ->get();
+        $sum =0;
+        foreach ($lista as $list){
+            $sum +=$list->peso;
+        }
+        $total = $sum/1000;      
+
+        if($corral->capacidad > $total){
+            $asignacion = new Asignacion();
+            $asignacion->corral = $data['corral'];
+            $asignacion->animal = $data['animal'];
+            $asignacion->save();
+            $animal = Animal::find($data['animal']);
+            $animal->estado = 'I';
+            $animal->save();
+
+            return redirect()->back()->with('message', 'Registro Exitoso');
+
+        }else{
+            $corral = Corral::find($data['corral']);
+            $corral->estado = 'I';
+            $corral->save();
+            return redirect()->back()->with('error', 'El Corral se encuentra lleno');
+        }
+
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Asignacion  $asignacion
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Asignacion $asignacion)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Asignacion  $asignacion
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Asignacion $asignacion)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Asignacion  $asignacion
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Asignacion $asignacion)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Asignacion  $asignacion
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Asignacion $asignacion)
-    {
-        //
-    }
 }

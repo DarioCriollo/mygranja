@@ -3,10 +3,11 @@
 @section('content')
 <div class="container">
     <a class="btn btn-info" href="{{ route('inicio') }}" >Atras</a>
-        <br><br><br><br>
+        <br><br>
         <div class="row justify-content-center">
             <div class="col-5">
-              
+                <a class="btn btn-danger" href="{{ route('reporte-pdf') }}" >Descargar PDF</a>
+                <br><br>
                 <div class="form-group row">
                     <label for="corral" class="col-sm-12 col-form-label"><b>Seleccionar Corral</b>*</label>
                     <div class="col-sm-10">
